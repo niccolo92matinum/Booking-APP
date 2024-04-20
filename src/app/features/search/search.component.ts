@@ -1,6 +1,12 @@
+import { CartService } from './../../core/service/cart.service';
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Hotel } from '../../model/hotel';
+import { Hotel, Room } from '../../model/hotel';
+
+class InfoMail{
+  email:string|undefined
+  msg:string|undefined
+}
 
 
 
@@ -14,24 +20,31 @@ import { Hotel } from '../../model/hotel';
  
 })
 export class SearchComponent {
-  text = 'Roma';
+  text: string = 'Roma';
   hotels: Hotel[] | undefined;
   active:Hotel | undefined; 
   activeImage: string | undefined;
+  room: Room | undefined
+ 
 
+
+ 
   
 
-  constructor(private http: HttpClient){
+  constructor(
+    private http: HttpClient,
+    private cart: CartService){
     this.searchHotels(this.text)
+ 
   }
 
   searchHotels(text:string){
     this.text = text;
     this.http.get<Hotel[]>('http://localhost:3000/hotels?city=' + text.toLowerCase())
     .subscribe(result => {
-      
-      this.hotels = result;
       this.setActive(result[0])
+      this.hotels = result;
+      
     });
   }
 
@@ -43,6 +56,15 @@ export class SearchComponent {
   }
   setActiveImage(img:string){
     this.activeImage = img
+  }
+
+  sendEmail(value: InfoMail){
+
+window.alert(`Mail inviata da: ${value.email}. Messaggio: ${value.msg}`)
+  }
+
+  addToCart(room:Room, active:Hotel|undefined){
+this.cart.addToCart(active, room)
   }
  
 

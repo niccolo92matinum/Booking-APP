@@ -9,23 +9,24 @@ import {FormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {NgModule} from '@angular/core';
 import { IonicModule } from '@ionic/angular';
+import { IntToArrayPipe } from "./shared/pipes/int-to-array.pipe";
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    SearchComponent,
-    CartComponent,
-    LoginComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    FormsModule,
-    IonicModule.forRoot({})
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
- 
+    declarations: [
+        AppComponent,
+        SearchComponent,
+        CartComponent,
+        LoginComponent
+    ],
+    providers: [],
+    bootstrap: [AppComponent],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        HttpClientModule,
+        FormsModule,
+        IonicModule.forRoot({}),
+        IntToArrayPipe
+    ]
 })
 export class AppModule { }

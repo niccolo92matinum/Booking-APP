@@ -3,11 +3,12 @@
       <div class="title">Cart (1)</div>
       <div class="content">
   
-        <div class="horiz-grid separator">
-          <div class="font-medium">Hotel XYZ</div>
-          <div>Single</div>
-          <div>€ 89</div>
-          <div><i class="icon ion-ios-trash"></i></div>
+        <div  *ngFor="let item of cart.items" class="horiz-grid separator">
+          <div class="font-medium">{{item.hotel.name}}</div>
+          <div>{{item.room.label}}</div>
+          <div>€ {{item.room.price}}</div>
+          <div (click)="cart.removeFromCart(item)">
+            <ion-icon name="trash" size="medium"></ion-icon>
         </div>
   
   

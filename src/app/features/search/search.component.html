@@ -48,42 +48,30 @@
   
         <div class="separator"></div>
         <div class="font-superbig">
-          4.5
-          <i class="ion-ios-person"></i>
+          {{active?.rate}}
+          <ion-icon name="person" size="medium"></ion-icon>
         </div>
-        <div>
-          <i class="icon ion-ios-star"></i>
-          <i class="icon ion-ios-star"></i>
-          <i class="icon ion-ios-star"></i>
-          <i class="icon ion-ios-star"></i>
-          <i class="icon ion-ios-star-outline"></i>
-        </div>
+        <div *ngFor="let star of 5| intToArray; let i = index">
+      <ion-icon *ngIf="i < (active?.stars || 0)" name="star" size="medium"></ion-icon>
+      <ion-icon *ngIf="i >= (active?.stars || 0)" name="star-half-outline" size="medium"></ion-icon>
+    </div>
+   
+          
+      
   
         <br>
   
-        <div class="horiz-grid separator">
-          <div>Single</div>
+        <div class="horiz-grid separator"
+        *ngFor="let room of active?.rooms"
+        (click)="addToCart(room, active)"
+        >
+          <div>{{room.label}}</div>
           <div>
-            € 89
-            <i class="ion-ios-cart"></i>
+            € {{room.price}}
+            <ion-icon name="cart" aria-hidden="true" size="medium"></ion-icon>
           </div>
         </div>
-  
-        <div class="horiz-grid separator">
-          <div>Double</div>
-          <div>
-            € 99
-            <i class="ion-ios-cart"></i>
-          </div>
-        </div>
-  
-        <div class="horiz-grid separator">
-          <div>Triple</div>
-          <div>
-            € 115
-            <i class="ion-ios-cart"></i>
-          </div>
-        </div>
+
       </div>
   
     </div>
@@ -117,9 +105,9 @@
     <div class="card contact">
       <div class="title">Contacts</div>
       <div class="content">
-        <form>
-          <input type="text" placeholder="Your email*" required>
-          <textarea cols="20" rows="6" placeholder="Your message*" required></textarea>
+        <form #contactForm="ngForm" (submit)="sendEmail(contactForm.value)">
+          <input [ngModel] name="email" type="text" placeholder="Your email*" required>
+          <textarea [ngModel] name="msg"cols="20" rows="6" placeholder="Your message*" required></textarea>
           <button type="submit">SEND</button>
         </form>
       </div>
